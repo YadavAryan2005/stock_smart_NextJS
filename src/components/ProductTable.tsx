@@ -1,23 +1,6 @@
 "use client";
 import { ProductI } from "@/model/product";
-import { getProducts } from "@/utils/actions";
-import { useEffect, useState } from "react";
-
-const ProductTable: React.FC = () => {
-  const [products, setProducts] = useState<ProductI[]>([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await getProducts();
-        setProducts(data);
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      }
-    };
-    fetchData();
-  }, []);
-
+const ProductTable = ({ products }: { products: ProductI[] }) => {
   return (
     <div className='overflow-x-auto overflow-y-clip bg-white p-8 rounded-lg'>
       <h1 className='text-2xl font-bold mb-6'>Display Current Stock</h1>
