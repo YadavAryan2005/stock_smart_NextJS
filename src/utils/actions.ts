@@ -9,12 +9,12 @@ export const storeProduct = async (productData: ProductI) => {
     if (productData._id) {
       await product.updateOne({ _id: productData._id }, productData);
       console.log("Product updated successfully");
-      return;
+      return "updated";
     }
     const product123 = new product(productData);
-
     await product123.save();
     console.log("Product stored successfully");
+    return "success";
   } catch (error) {
     console.error("Error storing data:", error);
   } finally {
@@ -41,6 +41,7 @@ export const storeFeedback = async (Feedback: FeedbackI) => {
     const feedback123 = new feedback(Feedback);
     await feedback123.save();
     console.log("Feedback stored successfully");
+    return "success";
   } catch (error) {
     console.error("Error storing data:", error);
   } finally {
