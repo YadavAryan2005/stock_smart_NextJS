@@ -1,7 +1,11 @@
 "use client";
+import { ProductI } from "@/model/product";
 import { storeProduct } from "@/utils/actions";
-import { ChangeEvent, FormEvent, useState } from "react";
-function ProductForm() {
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+function ProductForm(
+  this: any,
+  { updateProduct }: { updateProduct: ProductI | null }
+) {
   const [product, setProduct] = useState({
     Name: "",
     Description: "",
@@ -13,10 +17,34 @@ function ProductForm() {
   ) => {
     setProduct({ ...product, [e.target.name]: e.target.value });
   };
+  const handleNumberInput = (e: any) => {
+    let { value, min, max } = e.target;
+    value = Math.max(Number(min), Math.min(Number(max), Number(value)));
+    setProduct({ ...product, [e.target.name]: value });
+    if (value === 0) {
+      setProduct({ ...product, [e.target.name]: "" });
+    }
+  };
+  console.log("product.Price", product.Price);
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     await storeProduct(product);
   };
+  useEffect(() => {
+    if (updateProduct) {
+      setProduct(updateProduct);
+    }
+  }, [updateProduct]);
+  function imposeMinMax(el: any) {
+    if (el.value != "") {
+      if (parseInt(el.value) < parseInt(el.min)) {
+        el.value = el.min;
+      }
+      if (parseInt(el.value) > parseInt(el.max)) {
+        el.value = el.max;
+      }
+    }
+  }
   return (
     <div className='mx-auto mt-3'>
       <form
@@ -71,11 +99,14 @@ function ProductForm() {
           <input
             type='number'
             name='Price'
+            min={0}
+            max={1000}
             id='price'
             value={product.Price}
-            onChange={(e) => handleChange(e)}
+            onChange={(e) => handleNumberInput(e)}
             className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
             placeholder='Enter product price'
+            // onKeyUp={(el) => imposeMinMax(el)}
             required
           />
         </div>
@@ -91,8 +122,10 @@ function ProductForm() {
             type='number'
             name='Qty'
             id='quantity'
+            min={0}
+            max={1000}
             value={product.Qty}
-            onChange={(e) => handleChange(e)}
+            onChange={(e) => handleNumberInput(e)}
             className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
             placeholder='Enter product quantity'
             required

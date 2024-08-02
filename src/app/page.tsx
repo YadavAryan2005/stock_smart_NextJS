@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 
 export default function Home() {
   const [products, setProducts] = useState<ProductI[]>([]);
-
+  const [updateProduct, setUpdateProduct] = useState<ProductI | null>(null);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -23,9 +23,9 @@ export default function Home() {
 
   return (
     <main className='mt-16'>
-      <Search products={products}/>
-      <ProductForm />
-      <ProductTable products={products} />
+      <Search products={products} setUpdateProduct={setUpdateProduct} />
+      <ProductForm  updateProduct={updateProduct} />
+      <ProductTable products={products}/>
     </main>
   );
 }

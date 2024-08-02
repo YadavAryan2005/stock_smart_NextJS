@@ -1,11 +1,16 @@
 "use server";
+import feedback, { FeedbackI } from "@/model/feedback";
 import product, { ProductI } from "../model/product";
 import { connectDB, disconnectDB } from "./dbconnect";
 
 export const storeProduct = async (productData: ProductI) => {
   try {
     await connectDB();
-
+    if (productData._id) {
+      await product.updateOne({ _id: productData._id }, productData);
+      console.log("Product updated successfully");
+      return;
+    }
     const product123 = new product(productData);
 
     await product123.save();
@@ -25,6 +30,19 @@ export const getProducts = async (): Promise<ProductI[]> => {
   } catch (error) {
     console.error("Error fetching products:", error);
     return [];
+  } finally {
+    await disconnectDB();
+  }
+};
+
+export const storeFeedback = async (Feedback: FeedbackI) => {
+  try {
+    await connectDB();
+    const feedback123 = new feedback(Feedback);
+    await feedback123.save();
+    console.log("Feedback stored successfully");
+  } catch (error) {
+    console.error("Error storing data:", error);
   } finally {
     await disconnectDB();
   }

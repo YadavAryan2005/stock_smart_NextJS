@@ -34,7 +34,7 @@ function Footer() {
             rel='noopener noreferrer'
           >
             <LinkedinOutlined
-              className='hover:text-gray-900 transition-colors'
+              className='hover:text-blue-600 text-blue-700'
               style={{ fontSize: 30 }}
             />
           </a>
@@ -44,7 +44,7 @@ function Footer() {
             rel='noopener noreferrer'
           >
             <TwitterOutlined
-              className='hover:text-gray-900 transition-colors'
+              className='hover:text-blue-600 text-blue-500'
               style={{ fontSize: 30 }}
             />
           </a>
