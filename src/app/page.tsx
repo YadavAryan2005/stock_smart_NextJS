@@ -5,9 +5,7 @@ import Search from "@/components/Search";
 import { ProductI } from "@/model/product";
 import { getProducts } from "@/utils/actions";
 import { useEffect, useState } from "react";
-
-// eslint-disable-next-line @next/next/no-async-client-component
-export default async function Home() {
+export default function Home() {
   const [products, setProducts] = useState<ProductI[]>([]);
   const [updateProduct, setUpdateProduct] = useState<ProductI | null>(null);
   useEffect(() => {
