@@ -75,13 +75,7 @@ const Search: React.FC<SearchProps> = ({ products, setUpdateProduct }) => {
                   </h1>
                 </div>
                 <div className='flex'>
-                  <button className='px-4 text-white font-bold bg-blue-500 hover:bg-blue-600 rounded-md'>
-                    -
-                  </button>
-                  <h1 className='w-10'>{product.Qty}</h1>
-                  <button className='px-4 text-white font-bold bg-blue-500 hover:bg-blue-600 rounded-md'>
-                    +
-                  </button>
+                  <h1 className=''>{product.Qty}</h1>
                 </div>
               </li>
             ))}
