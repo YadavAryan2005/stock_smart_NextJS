@@ -2,7 +2,7 @@
 import { ProductI } from "@/model/product";
 const ProductTable = ({ products }: { products: ProductI[] }) => {
   return (
-    <div className='overflow-x-auto overflow-y-clip bg-white p-8 rounded-lg'>
+    <div className='md:pb-20 overflow-x-auto overflow-y-clip bg-white p-8 rounded-lg'>
       <h1 className='text-2xl font-bold mb-6'>Display Current Stock</h1>
       {products.length > 0 ? (
         <table className='min-w-full bg-white'>

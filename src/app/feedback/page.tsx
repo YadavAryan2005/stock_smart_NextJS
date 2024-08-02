@@ -2,7 +2,8 @@
 import { storeFeedback } from "@/utils/actions";
 import { notification } from "antd";
 import { ChangeEvent, useState } from "react";
-export default function Feedback() {
+// eslint-disable-next-line @next/next/no-async-client-component
+export default async function Feedback() {
   const [api, contextHolder] = notification.useNotification();
   const [feedback, setFeedback] = useState({
     Name: "",
@@ -59,6 +60,7 @@ export default function Feedback() {
       });
     }
   };
+  await new Promise((resolve) => setTimeout(resolve, 200));
   return (
     <>
       {contextHolder}

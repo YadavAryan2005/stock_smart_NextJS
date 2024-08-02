@@ -6,7 +6,8 @@ import { ProductI } from "@/model/product";
 import { getProducts } from "@/utils/actions";
 import { useEffect, useState } from "react";
 
-export default function Home() {
+// eslint-disable-next-line @next/next/no-async-client-component
+export default async function Home() {
   const [products, setProducts] = useState<ProductI[]>([]);
   const [updateProduct, setUpdateProduct] = useState<ProductI | null>(null);
   useEffect(() => {
@@ -20,12 +21,11 @@ export default function Home() {
     };
     fetchData();
   }, []);
-
   return (
     <main className='mt-16'>
       <Search products={products} setUpdateProduct={setUpdateProduct} />
-      <ProductForm  updateProduct={updateProduct} />
-      <ProductTable products={products}/>
+      <ProductForm updateProduct={updateProduct} />
+      <ProductTable products={products} />
     </main>
   );
 }
