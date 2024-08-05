@@ -3,7 +3,7 @@ import { LinkedinOutlined, TwitterOutlined } from "@ant-design/icons";
 async function Footer() {
   return (
     <>
-      <footer className='w-full bg-gray-100 py-2 md:fixed bottom-0'>
+      <footer className='w-full bg-gray-100 py-2 sm:fixed bottom-0'>
         <div className='flex flex-col gap-3 sm:flex-row justify-between items-center px-4 sm:px-6 lg:px-8'>
           <div className='flex flex-col sm:flex-row gap-3 sm:gap-6 text-center sm:text-left'>
             <a

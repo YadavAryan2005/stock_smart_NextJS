@@ -1,5 +1,6 @@
 "use server";
 import feedback, { FeedbackI } from "@/model/feedback";
+import User, { userI } from "@/model/user";
 import product, { ProductI } from "../model/product";
 import { connectDB, disconnectDB } from "./dbconnect";
 
@@ -45,6 +46,20 @@ export const storeFeedback = async (Feedback: FeedbackI) => {
     return "success";
   } catch (error) {
     console.error("Error storing data:", error);
+  } finally {
+    await disconnectDB();
+  }
+};
+
+export const getUsers = async () => {
+  try {
+    await connectDB();
+    const users: userI[] = await User.find();
+    console.log("Users fetched successfully");
+    return users;
+  } catch (error) {
+    console.error("Error fetching users:", error);
+    return [];
   } finally {
     await disconnectDB();
   }
