@@ -24,9 +24,9 @@ function Users() {
     <div className='pt-20 px-4'>
       {users ? (
         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
-          {users.map((user) => (
+          {users.map((user, index) => (
             <div
-              key={user._id}
+              key={index}
               className='user-card p-4 bg-white rounded-lg shadow-md flex flex-col items-center'
             >
               <img
