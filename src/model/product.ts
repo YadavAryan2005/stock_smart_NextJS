@@ -9,6 +9,7 @@ export interface ProductI {
 }
 const productSchema = new Schema({
   Name: { type: String, required: true },
+  email: { type: String, required: true },
   Description: { type: String, required: true },
   Price: { type: String, required: true },
   Qty: { type: String, required: true },

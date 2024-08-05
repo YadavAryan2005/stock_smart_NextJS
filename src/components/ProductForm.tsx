@@ -2,14 +2,17 @@
 import { ProductI } from "@/model/product";
 import { storeProduct } from "@/utils/actions";
 import { notification } from "antd";
+import { useSession } from "next-auth/react";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 function ProductForm(
   this: any,
   { updateProduct }: { updateProduct: ProductI | null }
 ) {
+  const { data: session, status } = useSession();
   const [api, contextHolder] = notification.useNotification();
   const [product, setProduct] = useState({
     Name: "",
+    email: session?.user?.email as string,
     Description: "",
     Price: "",
     Qty: "",
@@ -40,7 +43,7 @@ function ProductForm(
         closeIcon: false,
       });
       clearForm();
-    } else if(data==="updated"){
+    } else if (data === "updated") {
       api["success"]({
         message: "Your Product Updated",
         description: "Your Product Upadated successfully",
@@ -49,7 +52,7 @@ function ProductForm(
         closeIcon: false,
       });
       clearForm();
-    } else{
+    } else {
       api["error"]({
         message: "Product Upload Failed",
         description:
@@ -62,7 +65,7 @@ function ProductForm(
   };
   useEffect(() => {
     if (updateProduct) {
-      setProduct(updateProduct);
+      setProduct({ ...updateProduct, email: session?.user?.email as string });
     }
   }, [updateProduct]);
   function imposeMinMax(el: any) {
@@ -78,6 +81,7 @@ function ProductForm(
   const clearForm = () => {
     setProduct({
       Name: "",
+      email: session?.user?.email as string,
       Description: "",
       Price: "",
       Qty: "",

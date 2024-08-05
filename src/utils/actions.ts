@@ -22,10 +22,11 @@ export const storeProduct = async (productData: ProductI) => {
   }
 };
 
-export const getProducts = async (): Promise<ProductI[]> => {
+export const getProducts = async (email?: string): Promise<ProductI[]> => {
   try {
     await connectDB();
-    const products: ProductI[] = await product.find();
+    const products: ProductI[] = await product.find({ email: email });
+    console.log("Products fetched successfully");
     return products;
   } catch (error) {
     console.error("Error fetching products:", error);

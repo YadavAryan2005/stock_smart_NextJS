@@ -1,10 +1,6 @@
-import { auth } from "@/auth";
 import { LinkedinOutlined, TwitterOutlined } from "@ant-design/icons";
-import { SignIn } from "./SignIn";
 
 async function Footer() {
-  const session = await auth();
-  if (!session) return <SignIn />;
   return (
     <>
       <footer className='w-full bg-gray-100 py-2 md:fixed bottom-0'>
