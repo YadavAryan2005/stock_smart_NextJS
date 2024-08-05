@@ -147,7 +147,7 @@ function ProductForm(
               type='number'
               name='Price'
               min={0}
-              max={1000}
+              max={1000000}
               id='price'
               value={product.Price}
               onChange={(e) => handleNumberInput(e)}
@@ -170,7 +170,7 @@ function ProductForm(
               name='Qty'
               id='quantity'
               min={0}
-              max={1000}
+              max={1000000}
               value={product.Qty}
               onChange={(e) => handleNumberInput(e)}
               className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
