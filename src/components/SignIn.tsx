@@ -1,4 +1,4 @@
-import { signIn, signOut } from "@/auth";
+import { signIn } from "@/auth";
 import oauth from "@/img/Oauth.png";
 import github from "@/img/icons8-github.svg";
 import google from "@/img/icons8-google.svg";
@@ -37,21 +37,6 @@ export async function SignIn() {
             >
               <Image src={google} width={30} alt='google' />
               Signin with Google
-            </button>
-          </form>
-          <form
-            action={async () => {
-              "use server";
-              const data: any = await signOut();
-              console.log(await data.json());
-            }}
-          >
-            <button
-              type='submit'
-              className='flex gap-3 items-center bg-blue-600 rounded-md p-3 transition duration-500 hover:bg-blue-700'
-            >
-              <Image src={google} width={30} alt='google' />
-              SignOut with Google
             </button>
           </form>
         </div>
