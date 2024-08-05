@@ -58,9 +58,9 @@ const Search: React.FC<SearchProps> = ({ products, setUpdateProduct }) => {
         </div>
         {filteredProducts.length > 0 && (
           <ul className='absolute z-10 w-full bg-white border border-gray-300 rounded shadow-md mt-1 max-h-60'>
-            {filteredProducts.map((product) => (
+            {filteredProducts.map((product, index) => (
               <li
-                key={product._id}
+                key={index}
                 className='py-2 rounded-md cursor-pointer flex hover:bg-gray-100 gap-3 justify-between px-3'
                 onClick={() => selected(product)}
               >

@@ -30,7 +30,7 @@ export default function Home() {
     fetchData();
   }, []);
   return (
-    <main className='mt-16'>
+    <main className='mt-16 mb-10'>
       <Search products={products} setUpdateProduct={setUpdateProduct} />
       <ProductForm updateProduct={updateProduct} />
       <ProductTable products={products} />
