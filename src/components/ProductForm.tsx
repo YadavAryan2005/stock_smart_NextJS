@@ -43,6 +43,7 @@ function ProductForm(
         closeIcon: false,
       });
       clearForm();
+      setTimeout(() => window.location.reload(), 3000);
     } else if (data === "updated") {
       api["success"]({
         message: "Your Product Updated",
@@ -52,6 +53,7 @@ function ProductForm(
         closeIcon: false,
       });
       clearForm();
+      setTimeout(() => window.location.reload(), 3000);
     } else {
       api["error"]({
         message: "Product Upload Failed",

@@ -2,7 +2,7 @@
 import { userI } from "@/model/user";
 import { getUsers } from "@/utils/actions";
 import { useEffect, useState } from "react";
-
+import Loading from "../loading";
 function Users() {
   const [users, setUsers] = useState<userI[] | null>(null);
 
@@ -42,7 +42,9 @@ function Users() {
           ))}
         </div>
       ) : (
-        <p>Loading users...</p>
+        <p>
+          <Loading />
+        </p>
       )}
     </div>
   );
