@@ -1,6 +1,6 @@
 "use client";
 import { ProductI } from "@/model/product";
-import { storeProduct } from "@/utils/actions";
+import { deleteProduct, storeProduct } from "@/utils/actions";
 import { notification } from "antd";
 import { useSession } from "next-auth/react";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
@@ -9,6 +9,7 @@ function ProductForm(
   { updateProduct }: { updateProduct: ProductI | null }
 ) {
   const { data: session, status } = useSession();
+  const [btn, setBtn] = useState(false);
   const [api, contextHolder] = notification.useNotification();
   const [product, setProduct] = useState({
     Name: "",
@@ -68,6 +69,7 @@ function ProductForm(
   useEffect(() => {
     if (updateProduct) {
       setProduct({ ...updateProduct, email: session?.user?.email as string });
+      setBtn(true);
     }
   }, [updateProduct]);
   function imposeMinMax(el: any) {
@@ -80,6 +82,20 @@ function ProductForm(
       }
     }
   }
+  const Delete = async () => {
+    const data = await deleteProduct(updateProduct?._id + "");
+    if (data === "success") {
+      api["success"]({
+        message: "Product Deleted",
+        description: "Your Product deleted successfully",
+        showProgress: true,
+        duration: 3,
+        closeIcon: false,
+      });
+      clearForm();
+      setTimeout(() => window.location.reload(), 3000);
+    }
+  };
   const clearForm = () => {
     setProduct({
       Name: "",
@@ -153,7 +169,6 @@ function ProductForm(
               onChange={(e) => handleNumberInput(e)}
               className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
               placeholder='Enter product price'
-              // onKeyUp={(el) => imposeMinMax(el)}
               required
             />
           </div>
@@ -179,13 +194,21 @@ function ProductForm(
             />
           </div>
 
-          <div className='flex items-center justify-between'>
+          <div className='flex items-center justify-start gap-5'>
             <button
               type='submit'
               className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'
             >
               Submit
             </button>
+            {btn && (
+              <div
+                className='bg-red-500 cursor-pointer hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'
+                onClick={() => Delete()}
+              >
+                Delete
+              </div>
+            )}
           </div>
         </form>
       </div>

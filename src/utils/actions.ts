@@ -64,3 +64,14 @@ export const getUsers = async () => {
     await disconnectDB();
   }
 };
+export const deleteProduct = async (id: string) => {
+  try {
+    await connectDB();
+    await product.deleteOne({ _id: id });
+    return "success";
+  } catch (error) {
+    console.error("Error deleting product:", error);
+  } finally {
+    await disconnectDB();
+  }
+};
