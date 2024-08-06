@@ -3,7 +3,7 @@ import { storeFeedback } from "@/utils/actions";
 import { notification } from "antd";
 import { ChangeEvent, useState } from "react";
 // eslint-disable-next-line @next/next/no-async-client-component
-export default async function Feedback() {
+export default function Feedback() {
   const [api, contextHolder] = notification.useNotification();
   const [feedback, setFeedback] = useState({
     Name: "",
@@ -39,28 +39,37 @@ export default async function Feedback() {
 
   const handleSubmit = async (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const data = await storeFeedback(feedback);
-    if (data === "success") {
-      api["success"]({
-        message: "New Feedback Added",
-        description: "Your Feedback upload successfully",
-        showProgress: true,
-        duration: 3,
-        closeIcon: false,
-      });
-      clearForm();
+    if (feedback.mobile.length === 10) {
+      const data = await storeFeedback(feedback);
+      if (data === "success") {
+        api["success"]({
+          message: "New Feedback Added",
+          description: "Your Feedback upload successfully",
+          showProgress: true,
+          duration: 3,
+          closeIcon: false,
+        });
+        clearForm();
+      } else {
+        api["error"]({
+          message: "Feedback Upload Failed",
+          description:
+            "We encountered an issue uploading your feedback. Please try again.",
+          showProgress: true, // Progress bar isn't usually needed for errors
+          duration: 3, // 5 seconds
+          closeIcon: false,
+        });
+      }
     } else {
       api["error"]({
         message: "Feedback Upload Failed",
-        description:
-          "We encountered an issue uploading your feedback. Please try again.",
+        description: "Please enter a valid mobile number.",
         showProgress: true, // Progress bar isn't usually needed for errors
         duration: 3, // 5 seconds
         closeIcon: false,
       });
     }
   };
-  await new Promise((resolve) => setTimeout(resolve, 200));
   return (
     <>
       {contextHolder}
@@ -94,10 +103,12 @@ export default async function Feedback() {
                   required
                 />
                 <input
-                  type='text'
+                  type='number'
                   name='mobile'
                   value={feedback.mobile}
                   onChange={handleChange}
+                  minLength={10}
+                  maxLength={10}
                   placeholder='Enter Mobile No'
                   className='border-b-2 border-blue-500 w-full md:w-1/3 px-2 py-1 outline-none focus:border-blue-700'
                   required
