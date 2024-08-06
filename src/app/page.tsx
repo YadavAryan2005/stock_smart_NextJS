@@ -12,6 +12,7 @@ export default function Home() {
   const [products, setProducts] = useState<ProductI[]>([]);
   const [updateProduct, setUpdateProduct] = useState<ProductI | null>(null);
   const { data: session, status } = useSession();
+  const [loading, setLoading] = useState(true);
 
   useLayoutEffect(() => {
     if (status !== "authenticated") {
@@ -20,20 +21,24 @@ export default function Home() {
   }, []);
   const fetchData = async () => {
     try {
+      setLoading(true);
       const data = await getProducts(session?.user?.email as string);
       setProducts(data);
     } catch (error) {
       console.error("Error fetching products:", error);
+    } finally {
+      setLoading(false);
     }
   };
   useEffect(() => {
     fetchData();
   }, []);
+  console.log(loading, "sdafsd");
   return (
     <main className='mt-16 mb-10'>
       <Search products={products} setUpdateProduct={setUpdateProduct} />
       <ProductForm updateProduct={updateProduct} />
-      <ProductTable products={products} />
+      <ProductTable products={products} loading={loading} />
     </main>
   );
 }
